@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hekun.demo.dao.SysNewsMapper" >
+  <resultMap id="BaseResultMap" type="com.hekun.demo.entity.SysNews" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="Author" property="author" jdbcType="VARCHAR" />
+    <result column="Publisher" property="publisher" jdbcType="VARCHAR" />
+    <result column="releaseTime" property="releasetime" jdbcType="TIMESTAMP" />
+    <result column="updateTIme" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="categoryId" property="categoryid" jdbcType="INTEGER" />
+    <result column="categoryName" property="categoryname" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hekun.demo.entity.SysNews" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, Author, Publisher, releaseTime, updateTIme, categoryId, categoryName
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from news
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from news
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hekun.demo.entity.SysNews" >
+    insert into news (id, title, Author, 
+      Publisher, releaseTime, updateTIme, 
+      categoryId, categoryName, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{publisher,jdbcType=VARCHAR}, #{releasetime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{categoryid,jdbcType=INTEGER}, #{categoryname,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hekun.demo.entity.SysNews" >
+    insert into news
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="author != null" >
+        Author,
+      </if>
+      <if test="publisher != null" >
+        Publisher,
+      </if>
+      <if test="releasetime != null" >
+        releaseTime,
+      </if>
+      <if test="updatetime != null" >
+        updateTIme,
+      </if>
+      <if test="categoryid != null" >
+        categoryId,
+      </if>
+      <if test="categoryname != null" >
+        categoryName,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="publisher != null" >
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="releasetime != null" >
+        #{releasetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="categoryid != null" >
+        #{categoryid,jdbcType=INTEGER},
+      </if>
+      <if test="categoryname != null" >
+        #{categoryname,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hekun.demo.entity.SysNews" >
+    update news
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        Author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="publisher != null" >
+        Publisher = #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="releasetime != null" >
+        releaseTime = #{releasetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updateTIme = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="categoryid != null" >
+        categoryId = #{categoryid,jdbcType=INTEGER},
+      </if>
+      <if test="categoryname != null" >
+        categoryName = #{categoryname,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hekun.demo.entity.SysNews" >
+    update news
+    set title = #{title,jdbcType=VARCHAR},
+      Author = #{author,jdbcType=VARCHAR},
+      Publisher = #{publisher,jdbcType=VARCHAR},
+      releaseTime = #{releasetime,jdbcType=TIMESTAMP},
+      updateTIme = #{updatetime,jdbcType=TIMESTAMP},
+      categoryId = #{categoryid,jdbcType=INTEGER},
+      categoryName = #{categoryname,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hekun.demo.entity.SysNews" >
+    update news
+    set title = #{title,jdbcType=VARCHAR},
+      Author = #{author,jdbcType=VARCHAR},
+      Publisher = #{publisher,jdbcType=VARCHAR},
+      releaseTime = #{releasetime,jdbcType=TIMESTAMP},
+      updateTIme = #{updatetime,jdbcType=TIMESTAMP},
+      categoryId = #{categoryid,jdbcType=INTEGER},
+      categoryName = #{categoryname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
